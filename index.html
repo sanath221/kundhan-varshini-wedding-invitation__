@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kundhan & Varshini — Wedding Invitation — RSVP</title>
+  <meta name="description" content="Kundhan Supraj & Varshini — Wedding invitation. RSVP using the form below.">
+  <meta property="og:title" content="Kundhan & Varshini — Wedding Invitation">
+  <meta property="og:description" content="Join us for the wedding of Kundhan and Varshini — June 28, 2026. RSVP here.">
+  <meta property="og:image" content="assets/invitation.jpg">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <div class="container-inner">
+    <header class="hero">
+      <img id="invitation-img" src="assets/invitation.jpg" alt="K & V Invitation" class="invitation">
+      <div id="image-fallback" class="image-fallback" style="display:none;margin-top:12px;text-align:left;max-width:760px;">
+        <p style="color:#6a4b31;margin:0 0 8px">Invitation image not found locally.</p>
+        <button id="upload-btn" class="btn">Upload local image</button>
+        <input id="file-input" type="file" accept="image/*" style="display:none">
+      </div>
+    </header>
+
+    <!-- Decorative initials removed per request -->
+
+    <main>
+      <section class="content">
+        <!-- Names and date removed as requested. Decorative header below replaces them. -->
+        <div class="hero-decor">
+          <div class="decor-text">You're Invited</div>
+          <svg class="decor-svg" width="220" height="28" viewBox="0 0 220 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+            <path d="M2 14 C40 2, 80 26, 110 14 C140 2, 180 26, 218 14" stroke="#c79b5a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.95"/>
+          </svg>
+        </div>
+
+        <div class="rsvp simple-rsvp">
+          <h2>RSVP</h2>
+          <p class="center muted">Please let us know if you can join us.</p>
+          <div class="simple-cta">
+            <button id="open-form" class="btn btn-large" data-newtab="1">RSVP</button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Modal for inline form -->
+    <div id="modal" class="modal" aria-hidden="true">
+      <div class="modal-content" role="dialog" aria-modal="true" aria-label="RSVP form">
+        <button id="close-modal" class="modal-close" aria-label="Close">&times;</button>
+        <iframe id="form-iframe" data-src="https://form.jotform.com/261511124643043" title="RSVP form" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <script>
+        (function(){
+        var openBtn = document.getElementById('open-form');
+        var modal = document.getElementById('modal');
+        var closeBtn = document.getElementById('close-modal');
+        var iframe = document.getElementById('form-iframe');
+        function openModal(){
+          if (!iframe.getAttribute('src')) iframe.setAttribute('src', iframe.dataset.src);
+          modal.classList.add('open');
+          modal.setAttribute('aria-hidden', 'false');
+        }
+        function closeModal(){
+          modal.classList.remove('open');
+          modal.setAttribute('aria-hidden', 'true');
+        }
+        openBtn && openBtn.addEventListener('click', function(){
+          // if the button requests opening in a new tab, do that; otherwise open modal
+          if(openBtn.dataset && openBtn.dataset.newtab === '1'){
+            window.open(iframe.dataset.src || 'https://form.jotform.com/261511124643043', '_blank', 'noopener');
+          } else {
+            openModal();
+          }
+        });
+        closeBtn && closeBtn.addEventListener('click', closeModal);
+        modal && modal.addEventListener('click', function(e){ if(e.target===modal) closeModal(); });
+        document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeModal(); });
+      })();
+      // Image fallback + local upload handler
+      (function(){
+        var img = document.getElementById('invitation-img');
+        var fallback = document.getElementById('image-fallback');
+        var uploadBtn = document.getElementById('upload-btn');
+        var fileInput = document.getElementById('file-input');
+        if(!img) return;
+        img.addEventListener('error', function(){
+          // try common alternate filename if present on disk (some systems append extra extension)
+          try{
+            var alt = img.src.replace('invitation.jpg','invitation.jpg.jpeg');
+            if(!img.dataset._triedAlt){
+              img.dataset._triedAlt = '1';
+              img.src = alt;
+              return;
+            }
+          }catch(e){}
+          fallback && (fallback.style.display = 'block');
+          img.style.display = 'none';
+        });
+        img.addEventListener('load', function(){
+          fallback && (fallback.style.display = 'none');
+          img.style.display = 'block';
+        });
+        uploadBtn && uploadBtn.addEventListener('click', function(){ fileInput && fileInput.click(); });
+        fileInput && fileInput.addEventListener('change', function(){
+          var f = this.files && this.files[0];
+          if(!f) return;
+          var url = URL.createObjectURL(f);
+          img.src = url;
+          img.style.display = 'block';
+          fallback && (fallback.style.display = 'none');
+        });
+      })();
+    </script>
+
+    <footer>
+      <p>© 2026 Kundhan &amp; Varshini</p>
+    </footer>
+    </div>
+  </div>
+</body>
+</html>
