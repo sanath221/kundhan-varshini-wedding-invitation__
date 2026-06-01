@@ -10,10 +10,10 @@
   <meta property="og:description" content="Join us in celebrating our love and togetherness on June 28, 2026.">
   <meta property="og:url" content="https://kundhan-varshini-wedding-invitation.vercel.app/">
   <meta property="og:site_name" content="Supraj - Varshini Wedding Invitation">
-  <meta property="og:image" content="https://kundhan-varshini-wedding-invitation-henna.vercel.app/assets/invitation.jpg.jpeg">
+  <meta property="og:image" content="https://kundhan-varshini-wedding-invitation-henna.vercel.app/assets/invitation.jpeg">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://kundhan-varshini-wedding-invitation-henna.vercel.app/assets/invitation.jpg.jpeg">
+  <meta name="twitter:image" content="https://kundhan-varshini-wedding-invitation-henna.vercel.app/assets/invitation.jpeg">
   <meta name="creator" content="Sanath Kishore Kadari">
   <meta name="publisher" content="Sanath Kishore Kadari">
   <meta name="author" content="Sanath Kishore Kadari">
@@ -25,7 +25,7 @@
   <div class="container">
     <div class="container-inner">
     <header class="hero">
-      <img id="invitation-img" src="assets/invitation.jpg" alt="K & V Invitation" class="invitation">
+      <img id="invitation-img" src="assets/invitation.jpeg" alt="K & V Invitation" class="invitation">
       <div id="image-fallback" class="image-fallback" style="display:none;margin-top:12px;text-align:left;max-width:760px;">
         <p style="color:#6a4b31;margin:0 0 8px">Invitation image not found locally.</p>
         <button id="upload-btn" class="btn">Upload local image</button>
@@ -97,9 +97,9 @@
         var fileInput = document.getElementById('file-input');
         if(!img) return;
         img.addEventListener('error', function(){
-          // try common alternate filename if present on disk (some systems append extra extension)
+          // try alternate filename if present on disk
           try{
-            var alt = img.src.replace('invitation.jpg','invitation.jpg.jpeg');
+            var alt = img.src.replace('invitation.jpeg','invitation.jpg');
             if(!img.dataset._triedAlt){
               img.dataset._triedAlt = '1';
               img.src = alt;
